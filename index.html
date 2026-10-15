@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Mockup estático de una plataforma de orientación jurídica con IA: portal del ciudadano y backoffice del despacho. Datos ficticios.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="legalia-version" content="v8.1 · 2026-10-15">
+<title>Legal IA · Mockup</title>
+<link rel="icon" type="image/svg+xml" href="static/img/favicon.svg">
+<!-- Iconos: Font Awesome 4.7 usa los mismos nombres de clase (fa-*) que Font APEX en Oracle APEX -->
+<link rel="stylesheet" href="static/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="static/css/app.css?v=8.1">
+<link rel="stylesheet" href="static/css/apex-ut.css?v=8.1">
+<link rel="stylesheet" href="static/css/gestion.css?v=8.1">
+</head>
+<body>
+
+<!-- =====================================================================================
+     PÁGINA DE ACCESO  (APEX: página 9999 · Login · cliente / abogado)
+     ===================================================================================== -->
+<div class="acceso" id="acceso" hidden>
+  <div class="acceso-escena">
+    <img class="acceso-fondo" src="static/img/acceso.svg" alt="">
+    <form class="acceso-card" id="formAcceso" novalidate>
+      <h1 id="accTitulo">Bienvenido</h1>
+      <p class="acceso-sub" id="accSub">Accede a la <b>plataforma cognitiva jurídica</b> más avanzada.</p>
+      <div class="acceso-tabs" role="tablist" aria-label="Tipo de acceso">
+        <button type="button" role="tab" class="on" aria-selected="true" data-rol="cliente"><span class="fa fa-user-o" aria-hidden="true"></span> Soy cliente</button>
+        <button type="button" role="tab" aria-selected="false" data-rol="abogado"><span class="fa fa-briefcase" aria-hidden="true"></span> Soy abogado</button>
+      </div>
+      <div class="acc-error" id="accError" role="alert"></div>
+      <button type="submit" class="acc-btn" id="accBtn">Iniciar sesión</button>
+      <div class="acc-pie"><span class="acc-seguro"><span class="fa fa-shield" aria-hidden="true"></span> Demostración · sin credenciales</span></div>
+    </form>
+  </div>
+</div>
+
+<!-- =====================================================================================
+     PORTAL DEL CLIENTE  (APEX: aplicación pública · página 1 «Mi consulta»
+     plantilla «Left and Right Side Columns»)
+     ===================================================================================== -->
+<div class="t-PageBody t-portal" id="vistaCliente" hidden>
+  <header class="t-Header" role="banner">
+    <button type="button" class="t-Header-controls" id="sidebarToggle" title="Mostrar u ocultar el historial" aria-label="Historial de consultas"><span class="fa fa-bars" aria-hidden="true"></span></button>
+    <a class="t-Header-logo" href="#" id="logoPortal" aria-label="Legal IA · inicio">
+      <img src="static/img/logo.svg" alt=""><span class="t-Header-logo-text">LEGAL <b>IA</b></span>
+    </a>
+    <div class="t-Header-navBar">
+      <button type="button" class="t-NavigationBar-item" id="canalHeader" title="Mensajes con el despacho" aria-label="Mensajes con el despacho"><span class="fa fa-envelope-o" aria-hidden="true"></span><span class="t-nb-badge" id="canalSinLeer"></span></button>
+      <button type="button" class="t-NavigationBar-item" id="inspectorToggle" title="Fuentes y expediente" aria-label="Fuentes y expediente"><span class="fa fa-columns" aria-hidden="true"></span><span class="t-nb-label">Fuentes</span></button>
+      <button type="button" class="t-NavigationBar-item" id="ayudaPortal" title="Ayuda" aria-label="Ayuda"><span class="fa fa-question-circle-o" aria-hidden="true"></span></button>
+      <button type="button" class="t-NavigationBar-item t-nb-user" id="sbUser" aria-haspopup="menu" title="Tu cuenta">
+        <span class="t-Avatar" id="userIni">?</span><span class="t-nb-label"><b id="userName">—</b><small id="userSub"></small></span><span class="fa fa-angle-down" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app">
+    <div class="sb-fondo" id="sbFondo" hidden></div>
+    <nav class="sidebar t-Body-side" id="sidebar" aria-label="Mis consultas y expedientes">
+      <div class="sb-head">
+        <button type="button" class="sb-new activo t-Button t-Button--hot" id="nuevaConsulta" title="Nueva consulta (Ctrl+Alt+N)"><span class="fa fa-plus" aria-hidden="true"></span>Nueva consulta</button>
+        <button type="button" class="sb-canal" id="abrirCanal" aria-describedby="canalSinLeerSb"><span class="fa fa-envelope-o" aria-hidden="true"></span><span>Mensajes con el despacho</span><em id="canalSinLeerSb" aria-label="sin leer"></em></button>
+        <label class="sb-buscar"><span class="fa fa-search" aria-hidden="true"></span><input type="search" id="sbBuscar" placeholder="Buscar en mis consultas" aria-label="Buscar en mis consultas"></label>
+      </div>
+      <div class="sb-body" id="sbBody"><div class="sb-vacio">Cargando…</div></div>
+      <div class="sb-pie"><span class="fa fa-lock" aria-hidden="true"></span> Conversación confidencial · cifrada</div>
+    </nav>
+
+    <div class="shell">
+      <div class="layout">
+        <section class="chat-panel t-Region" id="chatPanel" aria-label="Consulta">
+          <div class="drop" aria-hidden="true"><span class="fa fa-cloud-upload" aria-hidden="true"></span> Suelta aquí los documentos para añadirlos a tu consulta</div>
+          <div class="chat-head t-Region-header">
+            <div class="chat-num" id="chatNum" hidden></div>
+            <div class="chat-title" id="chatTitle" title="Haz clic para renombrar">Nueva consulta</div>
+            <button type="button" class="exp-chip" id="expChip" hidden></button>
+            <button type="button" class="btn-sec t-Button" id="guardarExp" hidden><span class="fa fa-folder-o" aria-hidden="true"></span> Guardar como expediente</button>
+            <button type="button" class="icon-btn sm" id="fijarChat" hidden aria-pressed="false" title="Fijar consulta" aria-label="Fijar consulta"><span class="fa fa-thumb-tack" aria-hidden="true"></span></button>
+            <button type="button" class="icon-btn sm" id="menuChat" hidden title="Más opciones" aria-label="Más opciones de la consulta" aria-haspopup="menu"><span class="fa fa-ellipsis-h" aria-hidden="true"></span></button>
+          </div>
+          <div class="thread" id="thread">
+            <div class="empty" id="emptyState">
+              <img class="empty-logo" src="static/img/logo.svg" alt="">
+              <h2 id="saludo">Hola, ¿en qué puedo ayudarte?</h2>
+              <p>Cuéntame tu situación con tus palabras. Analizaré cómo han resuelto los tribunales casos parecidos y te explicaré tus opciones. Puedes adjuntar documentos: contrato, nóminas, cartas, resoluciones…</p>
+              <div class="areas" role="list" aria-label="Áreas jurídicas">
+                <button type="button" class="area-card" role="listitem" data-q="Me han despedido de mi trabajo y no me dieron ningún papel, solo me lo dijeron por teléfono. ¿Qué puedo hacer?"><span class="fa fa-briefcase" aria-hidden="true"></span><b>Laboral</b><small>Despidos, salarios, bajas</small></button>
+                <button type="button" class="area-card" role="listitem" data-q="Mi casero quiere subirme el alquiler un 40% este año, ¿puede hacer eso?"><span class="fa fa-home" aria-hidden="true"></span><b>Civil y vivienda</b><small>Alquiler, compras, deudas</small></button>
+                <button type="button" class="area-card" role="listitem" data-q="Mi expareja no paga la pensión de alimentos de nuestros hijos desde hace tres meses. ¿Qué puedo hacer?"><span class="fa fa-users" aria-hidden="true"></span><b>Familia</b><small>Divorcio, custodia, pensiones</small></button>
+                <button type="button" class="area-card" role="listitem" data-q="Me ha llegado una citación para declarar como investigado en un juzgado. ¿Qué significa y qué debo hacer?"><span class="fa fa-gavel" aria-hidden="true"></span><b>Penal</b><small>Denuncias, citaciones, juicios</small></button>
+              </div>
+              <div class="confianza"><span><span class="fa fa-lock" aria-hidden="true"></span> Información protegida con cifrado de nivel bancario</span><span><span class="fa fa-balance-scale" aria-hidden="true"></span> Respuestas basadas en resoluciones de los tribunales</span><span><span class="fa fa-user-circle-o" aria-hidden="true"></span> Revisión por abogados de Despacho Demo</span></div>
+            </div>
+          </div>
+          <div class="composer-wrap">
+            <div class="subidas" id="subidas" aria-live="polite"></div>
+            <form class="composer" id="chatForm">
+              <textarea id="chatInput" rows="1" placeholder="Describe tu situación como se la contarías a una persona de confianza…" aria-label="Tu consulta"></textarea>
+              <div class="composer-tools">
+                <button type="button" class="attach-btn" id="attachBtn" title="Adjuntar documentos (DNI, contratos, nóminas, informes médicos, sentencias…)" aria-label="Adjuntar documentos"><span class="fa fa-paperclip" aria-hidden="true"></span></button>
+                <input type="file" id="fileInput" multiple hidden accept=".pdf,.jpg,.jpeg,.png,.webp,.docx,.txt,application/pdf,image/*">
+                <button type="button" class="attach-btn" id="vozBtn" hidden title="Dictar la consulta por voz" aria-label="Dictar por voz" aria-pressed="false"><span class="fa fa-microphone" aria-hidden="true"></span></button>
+                <button type="button" class="tool-chip on" id="buscarToggle" aria-pressed="true" title="Buscar jurisprudencia nueva para esta pregunta"><span class="fa fa-balance-scale" aria-hidden="true"></span>Jurisprudencia</button>
+                <span class="tool-hint" id="buscarHint" aria-live="polite"></span>
+                <button type="submit" class="send-btn" id="sendBtn" aria-label="Enviar"><span class="fa fa-paper-plane" aria-hidden="true"></span></button>
+              </div>
+            </form>
+            <div class="disclaimer" id="disclaimer">Legal IA orienta, no sustituye a un abogado. Antes de tomar decisiones importantes, consúltalo con el despacho. · <b>Mockup con datos ficticios.</b></div>
+          </div>
+        </section>
+
+        <!-- Canal con el despacho (APEX: página 3 «Mensajes con el despacho»): separado del asistente -->
+        <section class="canal-panel t-Region" id="canalPanel" hidden aria-labelledby="canalTit">
+          <div class="chat-head t-Region-header">
+            <span class="fa fa-envelope-o canal-ico" aria-hidden="true"></span>
+            <div class="canal-titulos"><div class="chat-title" id="canalTit">Mensajes con <span id="canalDespacho">el despacho</span></div>
+              <div class="canal-sub">Aquí te escribe tu abogado. Es un canal privado, distinto de tus consultas con el asistente Legal IA.</div></div>
+            <button type="button" class="btn-sec t-Button" id="canalVolver"><span class="fa fa-arrow-left" aria-hidden="true"></span> Volver a mis consultas</button>
+          </div>
+          <div class="canal-hilo" id="canalHilo" aria-live="polite"></div>
+          <form class="canal-form composer-wrap" id="canalForm">
+            <div class="canal-sobre"><label for="canalSobre">Sobre</label><select id="canalSobre"><option value="">(general)</option></select></div>
+            <div class="composer"><textarea id="canalInput" rows="2" placeholder="Escribe a tu abogado…" aria-label="Mensaje para el despacho"></textarea>
+              <div class="composer-tools"><span class="tool-hint">Respuesta habitual en horario de oficina</span><button type="submit" class="send-btn" aria-label="Enviar al despacho"><span class="fa fa-paper-plane" aria-hidden="true"></span></button></div></div>
+          </form>
+        </section>
+
+        <aside class="inspector t-Region" id="inspector" aria-label="Fuentes y expediente">
+          <div class="ptabs t-Tabs" role="tablist">
+            <button type="button" class="ptab active" data-pview="fuentes" role="tab"><span class="fa fa-balance-scale" aria-hidden="true"></span> Fuentes</button>
+            <button type="button" class="ptab" data-pview="expediente" role="tab"><span class="fa fa-folder-open-o" aria-hidden="true"></span> Mi expediente<span class="cnt" id="expCnt"></span></button>
+          </div>
+          <div class="pview active" id="pv-fuentes">
+            <div class="panel-head"><div class="panel-q" id="panelQ">En qué se apoya cada respuesta.</div></div>
+            <div class="panel-body" id="panelBody"><div class="inspector-empty">Cuando hagas una consulta, aquí verás las resoluciones judiciales en las que se apoya la respuesta y qué dice exactamente cada una.</div></div>
+          </div>
+          <div class="pview" id="pv-expediente">
+            <div class="panel-body" id="expBody"><div class="inspector-empty">Adjunta documentos (contrato, nóminas, carta de despido, informes médicos…) y aquí verás lo que contienen, lo que no cuadra y qué más conviene aportar.</div></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Herramientas internas del motor (no visibles en producción; el código del portal aún las alimenta) -->
+  <div class="t-oculto" hidden aria-hidden="true">
+    <span id="modePill"><span id="modePillText"></span></span>
+    <button type="button" id="consolaToggle"></button><button type="button" id="configToggle"></button>
+    <div id="configPanel">
+      <input type="text" id="endpointInput"><input type="number" id="topKInput" value="5">
+      <button type="button" id="modeMockBtn"></button><button type="button" id="modeLiveBtn" class="active"></button>
+      <button type="button" id="testConnBtn"></button><div id="connStatus"></div>
+      <div id="advToggle"><span id="advArrow"></span></div><div id="advBody"><textarea id="personaInput"></textarea></div>
+      <section id="cfgClaves"></section>
+    </div>
+    <button type="button" id="consolaHandle"></button>
+    <section id="consola">
+      <div id="consolaTirador"></div><button type="button" id="consolaMax"></button><button type="button" id="consolaClose"></button>
+      <button type="button" class="ctab active" data-ctab="vivo"></button>
+      <div class="cpanel active" id="c-vivo"></div><div class="cpanel" id="c-busqueda"></div><div class="cpanel" id="c-recuperacion"></div>
+      <div class="cpanel" id="c-prompt"></div><div class="cpanel" id="c-raw"></div><div class="cpanel" id="c-tiempos"></div>
+    </section>
+  </div>
+</div>
+
+<!-- =====================================================================================
+     BACKOFFICE DEL DESPACHO  (APEX: aplicación interna · plantilla «Standard» con
+     navegación lateral «Side Navigation Menu» y barra superior «Navigation Bar»)
+     ===================================================================================== -->
+<div class="t-PageBody t-despacho bo" id="vistaDespacho" hidden>
+  <header class="t-Header" role="banner">
+    <button type="button" class="t-Header-controls" id="boMenuMovil" title="Expandir o contraer el menú" aria-label="Menú"><span class="fa fa-bars" aria-hidden="true"></span></button>
+    <a class="t-Header-logo" href="#" id="logoDespacho" aria-label="Legal IA · panel de control">
+      <img src="static/img/logo.svg" alt=""><span class="t-Header-logo-text">LEGAL <b>IA</b><small>Backoffice · <span id="boDespacho">Despacho Demo</span></small></span>
+    </a>
+    <span class="t-Header-env" id="boEntorno" hidden>DEV</span>
+    <div class="t-Header-navBar">
+      <label class="t-Header-search"><span class="fa fa-search" aria-hidden="true"></span><input id="boBuscar" type="search" placeholder="Buscar consultas, clientes, materias…" aria-label="Buscar"></label>
+      <button type="button" class="t-NavigationBar-item" id="boAlertas" title="Alertas" aria-label="Alertas"><span class="fa fa-bell-o" aria-hidden="true"></span><span class="t-nb-badge" id="boAlertasN">0</span></button>
+      <button type="button" class="t-NavigationBar-item" id="boRefrescar" title="Actualizar datos" aria-label="Actualizar datos"><span class="fa fa-refresh" aria-hidden="true"></span></button>
+      <button type="button" class="t-NavigationBar-item t-nb-user" id="boYo" aria-haspopup="menu" title="Tu cuenta">
+        <span class="t-Avatar" id="boIni">—</span><span class="t-nb-label"><b id="boNombre">—</b><small id="boCargo">Abogado</small></span><span class="fa fa-angle-down" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="t-Body">
+    <nav class="t-Body-nav bo-nav" aria-label="Menú del despacho">
+      <ul class="t-TreeNav bo-menu">
+        <li class="t-TreeNav-group">Operación</li>
+        <li><button type="button" class="bo-item on" data-sec="dashboard"><span class="fa fa-tachometer" aria-hidden="true"></span><i>Panel de control</i></button></li>
+        <li><button type="button" class="bo-item" data-sec="consultas"><span class="fa fa-inbox" aria-hidden="true"></span><i>Consultas</i><em id="boCntConsultas"></em></button></li>
+        <li><button type="button" class="bo-item" data-sec="casos"><span class="fa fa-folder-open-o" aria-hidden="true"></span><i>Casos y expedientes</i></button></li>
+        <li><button type="button" class="bo-item" data-sec="clientes"><span class="fa fa-users" aria-hidden="true"></span><i>Clientes e historial</i></button></li>
+        <li class="t-TreeNav-group">Negocio</li>
+        <li><button type="button" class="bo-item" data-sec="economia"><span class="fa fa-line-chart" aria-hidden="true"></span><i>Dashboard</i><em id="boCntEconomia"></em></button></li>
+        <li><button type="button" class="bo-item" data-sec="gestion"><span class="fa fa-sliders" aria-hidden="true"></span><i>Gestión</i><em id="boCntGestion"></em></button></li>
+        <li><button type="button" class="bo-item" data-sec="analytics"><span class="fa fa-bar-chart" aria-hidden="true"></span><i>Informes y analytics</i></button></li>
+        <li class="t-TreeNav-group">Inteligencia</li>
+        <li><button type="button" class="bo-item" data-sec="insight"><span class="fa fa-diamond" aria-hidden="true"></span><i>LEGAL INSIGHT™</i></button></li>
+        <li><button type="button" class="bo-item" data-sec="supervision"><span class="fa fa-eye" aria-hidden="true"></span><i>Supervisión de la IA</i><em id="boCntSupervision" class="info"></em></button></li>
+        <li class="t-TreeNav-group">Sistema</li>
+        <li><button type="button" class="bo-item" data-sec="administracion"><span class="fa fa-cogs" aria-hidden="true"></span><i>Administración</i></button></li>
+      </ul>
+      <div class="t-Body-navPie">Mockup · <span id="boVersion">DEMO</span></div>
+    </nav>
+
+    <main class="t-Body-main bo-main" id="boMain">
+      <div class="t-Body-title">
+        <nav class="t-Breadcrumb" aria-label="Ruta"><a href="#" data-ir="dashboard">Inicio</a><span class="fa fa-angle-right" aria-hidden="true"></span><span id="boMiga">Panel de control</span></nav>
+        <div class="t-Body-titleRow"><h1 id="boTitulo">Panel de control</h1><p id="boSubtitulo">Centro de operaciones jurídicas inteligentes</p></div>
+      </div>
+      <div class="t-Body-content">
+        <section class="bo-sec on" id="bo-dashboard" aria-label="Panel de control"></section>
+        <section class="bo-sec" id="bo-consultas" aria-label="Consultas"></section>
+        <section class="bo-sec" id="bo-casos" aria-label="Casos y expedientes"></section>
+        <section class="bo-sec" id="bo-clientes" aria-label="Clientes e historial"></section>
+        <section class="bo-sec" id="bo-economia" aria-label="Dashboard económico"></section>
+        <section class="bo-sec" id="bo-gestion" aria-label="Gestión"></section>
+        <section class="bo-sec" id="bo-analytics" aria-label="Informes y analytics"></section>
+        <section class="bo-sec" id="bo-insight" aria-label="Legal IA Insight"></section>
+        <section class="bo-sec" id="bo-supervision" aria-label="Supervisión de la IA"></section>
+        <section class="bo-sec" id="bo-administracion" aria-label="Administración"></section>
+      </div>
+      <footer class="bo-footer"><span class="bo-footer-marca">Legal IA</span><span class="bo-footer-sub">Plataforma cognitiva jurídica · <span id="boPieDespacho">Despacho Demo</span></span></footer>
+    </main>
+  </div>
+
+  <!-- Diálogo lateral (APEX: página modal «Drawer») para el detalle de una ejecución de la IA -->
+  <div class="t-Drawer" id="boDrawer" hidden role="dialog" aria-modal="true" aria-labelledby="boDrawerTit">
+    <div class="t-Drawer-fondo" data-cerrar-drawer></div>
+    <div class="t-Drawer-panel">
+      <div class="t-Dialog-header"><h2 id="boDrawerTit">Detalle</h2><button type="button" class="t-Button t-Button--icon" data-cerrar-drawer aria-label="Cerrar"><span class="fa fa-times" aria-hidden="true"></span></button></div>
+      <div class="t-Dialog-body" id="boDrawerCuerpo"></div>
+      <div class="t-Dialog-pie" id="boDrawerPie" hidden></div>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="static/js/mock.js"></script>
+<script src="static/js/sesion.js?v=8.1"></script>
+<script src="static/js/portal.js?v=8.1"></script>
+<script src="static/js/despacho.js?v=8.1"></script>
+<script src="static/js/canal.js?v=8.1"></script>
+<script src="static/js/gestion.js?v=8.1"></script>
+</body>
+</html>
